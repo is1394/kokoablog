@@ -1,0 +1,38 @@
+{% load staticfiles %}
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta http-equiv="X-UA-Compatible" content="ie=edge">
+  <title>KokoaBlog</title>
+  <link rel="stylesheet" href="{% static 'css/bootstrap.css' %}">
+  <link rel="stylesheet" href="{% static 'css/style.css' %}">
+</head>
+<body>
+  <nav class="navbar navbar-default navbar-static-top text-center">
+    <a  href="/">
+      <img style='height: 15em!important;' src="{% static 'img/kokoa.png' %}" alt="KokoaBlog">
+    </a>
+  </nav>
+  <h1>KokoaBlog</h1>
+  <div class="container">
+    <h2>Nueva Entrada</h2>
+    <div class="row">
+      <form method="post">
+        {% csrf_token %}
+          <h2>¿Desea eliminar entrada ?</h3>
+          <pre>
+            <div class="text-center">
+              <img src="{{entry.img_url}}" style='height:10em; width:10em;' alt="" class="img-rounded">
+            </div>
+            <h3 style="color:rgb(221, 30, 81)">{{entry.title}}</h3>
+            <p>{{entry.body}}</p>
+          </pre>
+        <button type="submit"  class="btn btn-danger" >Eliminar</button>
+        <a href="{% url 'index' %}" class="btn btn-primary">Cancelar</a>
+      </form>
+    </div>
+  </div>
+</body>
+</html>

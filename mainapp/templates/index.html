@@ -1,0 +1,61 @@
+{% load staticfiles %}
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta http-equiv="X-UA-Compatible" content="ie=edge">
+  <title>KokoaBlog</title>
+  <link rel="stylesheet" href="{% static 'css/bootstrap.css' %}">
+  <link rel="stylesheet" href="{% static 'css/style.css' %}">
+</head>
+<body>
+  <nav class="navbar navbar-default navbar-static-top text-center">
+    <a  href="/">
+      <img style='height: 15em!important;' src="{% static 'img/kokoa.png' %}" alt="KokoaBlog">
+
+    </a>
+  </nav>
+  <h1>KokoaBlog</h1>
+
+  {% if entrys_total > 0 %}
+  <h2>Tengo algunas entradas :D</h2>
+  {% endif %}
+
+  <main class="container" role='main'>
+    <!-- /new  -->
+    <a href="{% url 'crear_entrada' %}" class="btn btn-success" style="margin-bottom:1em"><span class="glyphicon glyphicon-new-window" aria-hidden='true'></span> Nueva Entradas</a>
+    <div class="panel panel-default">
+      {% for entry in object_list  %}
+      <!--  for entry in object_list  -->
+      <div class="panel-heading">
+        <!--  <h2 class='panel-title'>{{ entry.title | upper }}</h2>  -->
+        <h2 class='panel-title'>
+          <span style="color:#FF2920" class="glyphicon glyphicon-heart" aria-hidden='true'></span>
+          {{ entry.title }}
+          <!-- /delete/{{entry.id}} -->
+          <a href="{% url 'eliminar_entrada' entry.id  %}" class='text-right' style='float:right'>
+            <span class="glyphicon glyphicon-trash" style="color:rgb(221, 30, 81)"></span>
+          </a>
+          <!--/edit/{{entry.id}}"  -->
+          <a href="{% url 'editar_entrada' entry.id %}" class="text-right" style="float:right">
+            <span class="glyphicon glyphicon-pencil" style='color:rgba(208, 215, 70, 0.79)'></span>
+          </a>
+
+        </h2>
+      </div>
+      <div class="panel-body">
+        <div style="float:left; padding-left:1em; position:static">
+          <img style="height:6em; width:6em;  " class="img-responsive" src="{{ entry.img_url }}" alt="">
+        </div>
+        <div style="float:left; padding-left:1em; position:static">
+          {{ entry.body | truncatechars:50 }} ...
+        </div>
+      </div>
+      {% endfor %}
+    </div>
+  </main>
+
+
+</body>
+</html>
